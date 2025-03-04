@@ -25,7 +25,7 @@ import processing.core.PApplet;
  * within the graphical window.
  */
 
-public abstract class Agent implements Clickable {
+public class Agent extends Object implements Clickable {
 
   private float destX, destY;
   protected static int diameter = 50;
@@ -237,9 +237,11 @@ public abstract class Agent implements Clickable {
 
   public void mousePressed() {
 
-    if (isMouseOver()) {
-      toggleActive();
-      startDragging();
+    if(this.isMouseOver() == true) {
+      if(this.isMoving() != true);
+      this.isDragging = true;
+      this.originalX = this.xPos;
+      this.originalY = this.yPos;
     }
 
   }
@@ -252,9 +254,14 @@ public abstract class Agent implements Clickable {
   public void mouseReleased() {
 
     stopDragging();
+    if(this.xPos == this.originalX && this.yPos == this.originalY) {
+      this.isActive = true;
+    }
+
+    this.originalX = -1;
+    this.originalY = -1;
 
   }
-
 
   /**
    * Checks if the agent is active.

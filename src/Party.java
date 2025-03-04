@@ -22,7 +22,7 @@ import processing.core.PImage;
  * Represents a party that can be selected and added to a team.
  */
 
-public class Party implements Clickable {
+public class Party extends Object implements Clickable {
 
   private static TeamManagementSystem tms;
   private float x, y;
@@ -84,9 +84,7 @@ public class Party implements Clickable {
   @Override
   public void draw() {
 
-    if (tms != null) {
-      tms.image(image, x, y);
-    }
+    tms.image(image, x, y);
 
   }
 
@@ -130,8 +128,11 @@ public class Party implements Clickable {
   @Override
   public boolean isMouseOver() {
 
-    return (tms.mouseX >= x && tms.mouseX <= x + image.width &&
-        tms.mouseY >= y && tms.mouseY <= y + image.height);
+    float mouseX = tms.mouseX;
+    float mouseY = tms.mouseY;
+
+    return mouseX >= x && mouseX <= x + image.width &&
+        mouseY >= y && mouseY <= y + image.height;
 
   }
 

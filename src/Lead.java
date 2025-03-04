@@ -21,7 +21,7 @@
  * selects all members of the Team at the same time.
  */
 
-public class Lead extends Agent {
+public class Lead extends Agent implements Clickable {
 
 
   /**
@@ -46,16 +46,18 @@ public class Lead extends Agent {
 
   @Override
   public void draw() {
+
     super.draw();
 
     processing.fill(0);
 
-    float triangleX1 = xPos - diameter / 3;
-    float triangleX2 = xPos + diameter / 3;
-    float triangleY = yPos - diameter / 5;
+    float triangleX1 = getX() - diameter / 3;
+    float triangleX2 = getX() + diameter / 3;
+    float triangleY = getY() - diameter / 5;
 
-    processing.triangle(triangleX1, triangleY, triangleX2, triangleY, xPos, yPos +
-        diameter / 3);
+    processing.triangle(triangleX1, triangleY, triangleX2, triangleY,
+        getX(), getY() + diameter / 3);
+
   }
 
 
@@ -68,12 +70,11 @@ public class Lead extends Agent {
   @Override
   public void mouseReleased() {
 
-    if (isMouseOver()) {
-      if (team != null) {
-        team.selectAll();
-      }
+    if (isMouseOver() && team != null) {
+      team.selectAll();
     }
 
   }
+
 
 }

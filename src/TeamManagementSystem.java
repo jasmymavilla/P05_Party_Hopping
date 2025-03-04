@@ -15,6 +15,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import processing.core.PApplet;
@@ -73,9 +74,9 @@ public class TeamManagementSystem extends PApplet {
     teams = new ArrayList<Team>();
     bgColor = color(81, 125, 168);
 
-    objects.add(new Party(200, 125, loadImage("cup.png")));
-    objects.add(new Party(600, 150, loadImage("dice.png")));
-    objects.add(new Party(400, 450, loadImage("ball.png")));
+    objects.add(new Party(200, 125, loadImage("images" + File.separator + "cup.png")));
+    objects.add(new Party(600, 150, loadImage("images" + File.separator + "dice.png")));
+    objects.add(new Party(400, 450, loadImage("images" + File.separator + "ball.png")));
 
     Agent agent = new Lead(width / 2, height / 2);
     objects.add(agent);
@@ -104,7 +105,6 @@ public class TeamManagementSystem extends PApplet {
     clearEmptyTeams();
 
     if (teams.size() > 0) {
-
       int yCoordinate = 20;
       textSize(16);
       for (Team team : teams) {
@@ -128,12 +128,13 @@ public class TeamManagementSystem extends PApplet {
   public void clearEmptyTeams() {
 
     for (int i = teams.size() - 1; i >= 0; i--) {
-      if (teams.get(i).members().isEmpty()) {
+      if (teams.get(i).getTeamSize() == 0) {
         teams.remove(i);
       }
     }
 
   }
+
 
 
   /**

@@ -52,7 +52,8 @@ public class TeamTester {
 
     Agent agent = new Lead(50, 50);
     agent.setDestination(100, 100);
-    agent.isMoving();
+    agent.move();
+
     int newX = (int) agent.getX();
     int newY = (int) agent.getY();
 
@@ -94,9 +95,10 @@ public class TeamTester {
       ArrayList<Agent> agents = new ArrayList<>();
       agents.add(new Lead(50, 50));
       agents.add(new Lead(200, 300));
-      new Team(agents);
+
+      new Team(1, agents);
       return false;
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalStateException e) {
       return true;
     } catch (Exception e) {
       return false;
@@ -115,20 +117,20 @@ public class TeamTester {
 
     try {
       ArrayList<Agent> agents = new ArrayList<>();
-      new Team(agents);
+      new Team(1, agents);
       return false;
     } catch (IllegalArgumentException e) {
     }
 
     ArrayList<Agent> agents = new ArrayList<>();
     agents.add(new Lead(50, 50));
-    Team team = new Team(agents);
+    Team team = new Team(1, agents);
 
     if (team.getTeamSize() != 1) {
       return false;
     }
 
-    team.removeMember(team.getAgent(0));
+    team.removeMember(agents.get(0));
     return team.getTeamSize() == 0;
 
   }
@@ -145,7 +147,7 @@ public class TeamTester {
     ArrayList<Agent> agents = new ArrayList<>();
     agents.add(new Lead(50, 50));
 
-    Team team = new Team(agents);
+    Team team = new Team(1, agents);
     if (team.getTeamSize() != agents.size()) {
       return false;
     }
@@ -169,7 +171,7 @@ public class TeamTester {
 
     ArrayList<Agent> agents = new ArrayList<>();
     agents.add(new Lead(50, 50));
-    Team team = new Team(agents);
+    Team team = new Team(1, agents);
     Agent newAgent = new Lead(200, 250);
 
     team.addMember(newAgent);
@@ -178,7 +180,11 @@ public class TeamTester {
       return false;
     }
 
-    return team.getAgent(1) == newAgent;
+    if (!team.contains(newAgent)) {
+      return false;
+    }
+
+    return true;
 
   }
 
@@ -196,7 +202,7 @@ public class TeamTester {
     agents.add(new Lead(100, 100));
     agents.add(new Lead(200, 200));
 
-    Team team = new Team(agents);
+    Team team = new Team(1, agents);
     double expectedCenterX = (50 + 100 + 200) / 3.0;
     double expectedCenterY = (50 + 100 + 200) / 3.0;
 

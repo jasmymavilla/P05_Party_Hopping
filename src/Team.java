@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * The team has a unique identifier and color for visual representation.
  */
 
-public class Team {
+public class Team extends Object{
 
   private static char idGenerator = 'A';
   private ArrayList<Agent> members;
@@ -48,7 +48,7 @@ public class Team {
 
     int leadCount = 0;
     for (Agent agent : agents) {
-      if (agent.isActive()) {
+      if (agent instanceof Lead) {
         leadCount++;
       }
     }
@@ -196,13 +196,14 @@ public class Team {
   public boolean hasLead() {
 
     for (Agent agent : members) {
-      if (agent.isActive()) {
+      if (agent instanceof Lead) {
         return true;
       }
     }
     return false;
 
   }
+
 
 
   /**
